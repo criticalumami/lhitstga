@@ -277,12 +277,22 @@ const map = new maplibregl.Map({
 
             // Locate Me functionality
             const locateMeButton = document.getElementById('locate-me-button');
+            let userLocationMarker = null;
             if (locateMeButton) {
                 locateMeButton.addEventListener('click', function() {
                     if (navigator.geolocation) {
                         navigator.geolocation.getCurrentPosition(function(position) {
                             const userLngLat = [position.coords.longitude, position.coords.latitude];
                             map.flyTo({ center: userLngLat, zoom: 14 });
+
+                            // Remove previous marker if it exists
+                            if (userLocationMarker) {
+                                userLocationMarker.remove();
+                            }
+                            // Add a new marker at the user's location
+                            userLocationMarker = new maplibregl.Marker({ color: '#007aff' })
+                                .setLngLat(userLngLat)
+                                .addTo(map);
                         }, function(error) {
                             alert('Error getting your location: ' + error.message);
                         });
