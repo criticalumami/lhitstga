@@ -1,4 +1,4 @@
-    const map = new maplibregl.Map({
+const map = new maplibregl.Map({
         container: 'map',
         style: {
             version: 8,
@@ -277,17 +277,21 @@
 
             // Locate Me functionality
             const locateMeButton = document.getElementById('locate-me-button');
-            locateMeButton.addEventListener('click', function() {
-                if (navigator.geolocation) {
-                    navigator.geolocation.getCurrentPosition(function(position) {
-                        const userLngLat = [position.coords.longitude, position.coords.latitude];
-                        map.flyTo({ center: userLngLat, zoom: 14 });
-                    }, function(error) {
-                        alert('Error getting your location: ' + error.message);
-                    });
-                } else {
-                    alert('Geolocation is not supported by your browser.');
-                }
-            });
+            if (locateMeButton) {
+                locateMeButton.addEventListener('click', function() {
+                    if (navigator.geolocation) {
+                        navigator.geolocation.getCurrentPosition(function(position) {
+                            const userLngLat = [position.coords.longitude, position.coords.latitude];
+                            map.flyTo({ center: userLngLat, zoom: 14 });
+                        }, function(error) {
+                            alert('Error getting your location: ' + error.message);
+                        });
+                    } else {
+                        alert('Geolocation is not supported by your browser.');
+                    }
+                });
+            } else {
+                console.warn('Locate Me button not found in the DOM.');
+            }
         });
     });
