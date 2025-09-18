@@ -63,3 +63,40 @@ body { margin: 0; padding: 0; }
 .search-result-item:hover {
     background-color: #f0f0f0;
 }
+
+#locate-me-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 1;
+    padding: 8px 12px;
+    background-color: #007cbf;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+}
+
+#locate-me-button:hover {
+    background-color: #005f99;
+}
+
+#locate-me-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 1;
+    background-color: #007cbf;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+#locate-me-button:hover {
+    background-color: #005fa3;
+}

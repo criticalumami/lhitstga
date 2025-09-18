@@ -230,7 +230,8 @@
                     // Search in parcels layer
                     allParcelsData.features.forEach(parcelFeature => {
                         const properties = parcelFeature.properties;
-                        if (properties['PlotNo'] && properties['PlotNo'].toLowerCase().includes(query)) {
+                        if ((properties['PlotNo'] && properties['PlotNo'].toLowerCase().includes(query)) ||
+                            (properties['PID'] && properties['PID'].toLowerCase().includes(query))) {
                             matchedFeatures.push({ type: 'parcel', feature: parcelFeature });
                             highlightGeometries.features.push(parcelFeature);
                         }
@@ -271,6 +272,21 @@
                     // Clear highlights if query is too short or empty
                     map.getSource('highlight-points').setData({ type: 'FeatureCollection', features: [] });
                     map.getSource('highlight-geometries').setData({ type: 'FeatureCollection', features: [] });
+                }
+            });
+
+            // Locate Me functionality
+            const locateMeButton = document.getElementById('locate-me-button');
+            locateMeButton.addEventListener('click', function() {
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(function(position) {
+                        const userLngLat = [position.coords.longitude, position.coords.latitude];
+                        map.flyTo({ center: userLngLat, zoom: 14 });
+                    }, function(error) {
+                        alert('Error getting your location: ' + error.message);
+                    });
+                } else {
+                    alert('Geolocation is not supported by your browser.');
                 }
             });
         });
